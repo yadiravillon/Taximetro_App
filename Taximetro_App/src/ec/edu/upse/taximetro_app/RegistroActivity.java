@@ -6,6 +6,8 @@ import org.ksoap2.serialization.SoapPrimitive;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
+import ec.edu.upse.taximetro_app.modelo.DBTaximetro;
+
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -17,6 +19,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class RegistroActivity extends Activity {
 
@@ -112,9 +115,23 @@ public class RegistroActivity extends Activity {
 		
 	}
 	
-	
 	public void Cancelar_Evento(View boton){
 		Intent intent =new Intent(this,MainActivity.class);
 		startActivity(intent);
+	}
+	/*
+	 * String nombres, String apellidos,
+			String email, String usuario, String clave
+	 * */
+	public void IngresarUsuario(View boton){
+		Inicializar();
+		String Nombres = et_nombres.getText().toString();
+		String Apellidos = et_apellidos.getText().toString();
+		String email = et_e_mail.getText().toString();
+		String Usuario = et_usuario.getText().toString();
+		String Clave = et_contrasenia.getText().toString();
+		DBTaximetro dbTaxi = new DBTaximetro();
+		dbTaxi.nuevoUsuario(this,Nombres, Apellidos, email, Usuario, Clave);//, nombres, apellidos, email, usuario, clave), nombres, apellidos, email, usuario, clave)//nuevoCliente(this, rucCedula, nombre, apellidos,direccion , 0.0, 0.0, rutafoto);
+		Toast.makeText(this, "Guardado", Toast.LENGTH_LONG).show();
 	}
 }

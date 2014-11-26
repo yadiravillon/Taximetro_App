@@ -19,7 +19,7 @@ public class DBTaximetro {
 			" email TEXT," +
 			" estado INTEGER )";
 	 * */
-	public void nuevoCliente(Context contexto, String nombres, String apellidos,
+	public void nuevoUsuario(Context contexto, String nombres, String apellidos,
 			String email, String usuario, String clave){
 		Integer id_persona = 0;
 		SqlTaximetro clienteDB= new SqlTaximetro(contexto, DB_NAME, null, 1);

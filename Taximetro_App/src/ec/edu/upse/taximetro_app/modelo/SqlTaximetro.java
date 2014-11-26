@@ -19,6 +19,7 @@ public class SqlTaximetro extends SQLiteOpenHelper {
 			" id_persona INTEGER NOT NULL" +
 			" usuario TEXT," +
 			" clave TEXT," +
+			" estado TEXT, " +
 			"FOREING KEY (id_persona) REFERENCES personas(id))";
 	
 	public SqlTaximetro(Context context, String name, CursorFactory factory,

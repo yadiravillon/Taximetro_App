@@ -28,21 +28,17 @@ public final class R {
         public static final int ic_login=0x7f020004;
     }
     public static final class id {
-        public static final int LinearLayout1=0x7f08000e;
         public static final int LinearLayout2=0x7f080000;
-        public static final int action_settings=0x7f08001e;
-        public static final int btn_Acceder=0x7f080012;
-        public static final int btn_Cancelar=0x7f08001d;
+        public static final int action_settings=0x7f080019;
+        public static final int btn_Cancelar=0x7f080018;
         public static final int btn_Consulta=0x7f08000d;
         public static final int btn_InicioTaximetro=0x7f080008;
-        public static final int btn_Registro=0x7f080015;
-        public static final int editTextApellidos=0x7f080017;
-        public static final int editTextContrasenia=0x7f080011;
-        public static final int editTextE_mail=0x7f080018;
-        public static final int editTextNombres=0x7f080016;
-        public static final int editTextPassRegistro=0x7f08001c;
-        public static final int editTextUserRegistro=0x7f08001a;
-        public static final int editTextUsuario=0x7f08000f;
+        public static final int btn_Registro=0x7f080017;
+        public static final int editTextApellidos=0x7f080010;
+        public static final int editTextE_mail=0x7f080011;
+        public static final int editTextNombres=0x7f08000f;
+        public static final int editTextPassRegistro=0x7f080016;
+        public static final int editTextUserRegistro=0x7f080013;
         public static final int imageView1=0x7f080001;
         public static final int imageView2=0x7f080007;
         public static final int imageView3=0x7f08000c;
@@ -50,15 +46,14 @@ public final class R {
         public static final int tableRow2=0x7f080009;
         public static final int tableRow3=0x7f08000b;
         public static final int tableRow4=0x7f080004;
-        public static final int tableRow5=0x7f080013;
+        public static final int tableRow5=0x7f080014;
         public static final int textView1=0x7f080003;
         public static final int textView2=0x7f08000a;
         public static final int textView3=0x7f080005;
         public static final int textView4=0x7f080002;
-        public static final int textView5=0x7f080019;
-        public static final int textView6=0x7f08001b;
-        public static final int textViewNombre=0x7f080010;
-        public static final int textViewUsuario=0x7f080014;
+        public static final int textView5=0x7f080012;
+        public static final int textView6=0x7f080015;
+        public static final int textViewNombre=0x7f08000e;
     }
     public static final class layout {
         public static final int activity_funciones=0x7f030000;
@@ -73,14 +68,8 @@ public final class R {
     public static final class string {
         public static final int action_settings=0x7f050001;
         public static final int app_name=0x7f050000;
-        public static final int funciones=0x7f050008;
         public static final int hello_world=0x7f050002;
-        public static final int inicio_del_tax_metro=0x7f050009;
-        public static final int nombres_=0x7f050007;
-        public static final int registrarse=0x7f050005;
-        public static final int registro=0x7f050006;
-        public static final int title_activity_funciones=0x7f050004;
-        public static final int title_activity_registro=0x7f050003;
+        public static final int registro=0x7f050003;
     }
     public static final class style {
         /** 

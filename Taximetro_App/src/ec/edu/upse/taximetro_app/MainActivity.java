@@ -1,10 +1,18 @@
 package ec.edu.upse.taximetro_app;
 
+import java.util.ArrayList;
+
+
+import ec.edu.upse.taximetro_app.modelo.DBTaximetro;
+import ec.edu.upse.taximetro_app.utiles.ItemDeUsuario;
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
@@ -24,6 +32,28 @@ public class MainActivity extends Activity {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
-    
+    public void Registrarse_Evento(View boton){
+		Intent intent =new Intent(this,RegistroActivity.class);
+		startActivity(intent);
+	} 
+    public void Acceder_Evento(View boton)
+    {
+    	String Nombre = editTextUsuario.getText().toString();
+    	String Clave = editTextPassword.getText().toString();
+    	DBTaximetro dbTaxi = new DBTaximetro();
+    	ArrayList<ItemDeUsuario> listarTarjeta = dbTaxi.Listalogin(this, Nombre, Clave);
+    	if (listarTarjeta.size() == 0)
+    	{
+    		Toast.makeText(this, "Usuario o Clave incorrecta", Toast.LENGTH_LONG).show();
+    	}
+    	else
+    	{
+    		Intent intent =new Intent(this,FuncionesActivity.class);
+    		startActivity(intent);
+    	}
+    			
+    			
+    	
+    }
     
 }

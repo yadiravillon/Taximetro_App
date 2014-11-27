@@ -97,6 +97,7 @@
                 android:layout_marginBottom="99dp"
                 android:layout_marginRight="30dp"
                 android:layout_weight="0.11"
+                android:onClick="Acceder_Evento"
                 android:text="Acceder" />
 
         </TableRow>

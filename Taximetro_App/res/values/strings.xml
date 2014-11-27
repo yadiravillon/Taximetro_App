@@ -12,5 +12,7 @@
     <string name="contrasenia">Contraseña :</string>
     <string name="registrarse">Registrarse</string>
     <string name="cancelar">Cancelar</string>
+    <string name="usuario_">Usuario:</string>
+    <string name="contrase_a_">Contraseña:</string>
 
 </resources>

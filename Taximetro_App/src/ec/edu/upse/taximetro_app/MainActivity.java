@@ -33,11 +33,17 @@ public class MainActivity extends Activity {
         return true;
     }
     public void Registrarse_Evento(View boton){
-		Intent intent =new Intent(this,RegistroActivity.class);
+		Intent intent = new Intent(this,RegistroActivity.class);
 		startActivity(intent);
 	} 
+    public void Inicializar(){
+    	editTextUsuario = (EditText) findViewById(R.id.editTextUsuario);
+    	editTextPassword = (EditText) findViewById(R.id.editTextPassword);
+		
+	}
     public void Acceder_Evento(View boton)
     {
+    	Inicializar();
     	String Nombre = editTextUsuario.getText().toString();
     	String Clave = editTextPassword.getText().toString();
     	DBTaximetro dbTaxi = new DBTaximetro();
@@ -50,10 +56,7 @@ public class MainActivity extends Activity {
     	{
     		Intent intent =new Intent(this,FuncionesActivity.class);
     		startActivity(intent);
-    	}
-    			
-    			
-    	
+    	}	
     }
     
 }

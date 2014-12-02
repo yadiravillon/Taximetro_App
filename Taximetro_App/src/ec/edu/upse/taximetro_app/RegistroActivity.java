@@ -32,13 +32,13 @@ public class RegistroActivity extends Activity {
 		setContentView(R.layout.activity_registro);
 		Inicializar();
 		
-		btn_Registro.setOnClickListener(new OnClickListener() {
+		/*btn_Registro.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				WSRegistro registro = new WSRegistro();
 				registro.execute();
 			}
-		});
+		});*/
 		
 	}
 
@@ -58,7 +58,7 @@ public class RegistroActivity extends Activity {
 	}
 	
 	
-	private class WSRegistro extends AsyncTask<String, Integer, Boolean>{
+/*	private class WSRegistro extends AsyncTask<String, Integer, Boolean>{
 
 		@Override
 		protected Boolean doInBackground(String... params) {
@@ -114,7 +114,7 @@ public class RegistroActivity extends Activity {
 		}
 		
 	}
-	
+	*/
 	public void Cancelar_Evento(View boton){
 		Intent intent =new Intent(this,MainActivity.class);
 		startActivity(intent);
@@ -131,7 +131,11 @@ public class RegistroActivity extends Activity {
 		String Usuario = et_usuario.getText().toString();
 		String Clave = et_contrasenia.getText().toString();
 		DBTaximetro dbTaxi = new DBTaximetro();
-		dbTaxi.nuevoUsuario(this,Nombres, Apellidos, email, Usuario, Clave);//, nombres, apellidos, email, usuario, clave), nombres, apellidos, email, usuario, clave)//nuevoCliente(this, rucCedula, nombre, apellidos,direccion , 0.0, 0.0, rutafoto);
+		
+		dbTaxi.nuevoUsuario(this,Nombres, Apellidos, email, Usuario, Clave); //, nombres, apellidos, email, usuario, clave), nombres, apellidos, email, usuario, clave)//nuevoCliente(this, rucCedula, nombre, apellidos,direccion , 0.0, 0.0, rutafoto);
 		Toast.makeText(this, "Guardado", Toast.LENGTH_LONG).show();
+		
+		Intent intent =new Intent(this,MainActivity.class);
+		startActivity(intent);
 	}
 }

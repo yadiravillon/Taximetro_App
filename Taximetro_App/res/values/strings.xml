@@ -14,5 +14,11 @@
     <string name="cancelar">Cancelar</string>
     <string name="usuario_">Usuario:</string>
     <string name="contrase_a_">Contraseña:</string>
+    <string name="title_activity_consulta_">Consulta_Activity</string>
+    <string name="title_activity_consultas">ConsultasActivity</string>
+    <string name="Encendido">ON</string><string name="Apagado">OFF</string><string name="title_activity_item__result">Item_ResultActivity</string>
+    <string name="title_activity_taxi">TaxiActivity</string>
+    
+    
 
 </resources>

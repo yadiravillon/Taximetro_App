@@ -60,7 +60,16 @@
                 android:id="@+id/textViewRecorrido"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Recorrido:" />
+                android:text="RECORRIDO" />
+
+            <ToggleButton
+                android:id="@+id/toggleButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="ON_OFF"
+                android:text="ToggleButton"
+                android:textOff="@string/Apagado"
+                android:textOn="@string/Encendido" />
 
         </TableRow>
 
@@ -69,19 +78,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
 
-            <ToggleButton
-                android:id="@+id/toggleButton"
+            <TextView
+                android:id="@+id/textView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ToggleButton"
-                android:textOff="@string/Apagado"
-                android:textOn="@string/Encendido" />
+                android:text="Tiempo:" />
 
-            <Chronometer
-                android:id="@+id/cronometro"
+            <EditText
+                android:id="@+id/editTexttiempo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Chronometer" />
+                android:ems="10" />
 
         </TableRow>
 
@@ -94,7 +101,7 @@
                 android:id="@+id/textViewKm "
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Km" />
+                android:text="Km:" />
 
             <EditText
                 android:id="@+id/editTextkm"

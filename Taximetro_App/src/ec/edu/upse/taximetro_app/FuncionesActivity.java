@@ -2,7 +2,9 @@ package ec.edu.upse.taximetro_app;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
+import android.view.View;
 
 public class FuncionesActivity extends Activity {
 
@@ -18,5 +20,18 @@ public class FuncionesActivity extends Activity {
 		getMenuInflater().inflate(R.menu.funciones, menu);
 		return true;
 	}
+	
+	
+	public void onInicio(View boton){
+		Intent intent =new Intent(this,TaxiActivity.class);
+		startActivity(intent);
+	}
+	
+	public void onConsultas(View boton){
+		Intent intent =new Intent(this,ConsultasActivity.class);
+		startActivity(intent);
+	}
+	
+	
 
 }

@@ -3,6 +3,7 @@ package ec.edu.upse.taximetro_app.modelo;
 import java.util.ArrayList;
 
 import ec.edu.upse.taximetro_app.R;
+import ec.edu.upse.taximetro_app.utiles.ItemConsulta;
 import ec.edu.upse.taximetro_app.utiles.ItemDeUsuario;
 
 import android.content.Context;
@@ -44,7 +45,7 @@ public class DBTaximetro {
 		SQLiteDatabase dbg = UserBd.getWritableDatabase();
 		if(dbg!= null){
 			dbg.execSQL("INSERT INTO "+TABLA_NAME1+" VALUES" +
-					"(NULL,'"+usuario+"','"+clave+"','A',"+id_persona+")");
+					"(NULL,"+id_persona+",'"+usuario+"','"+clave+"','A')");
 		}
 		dbg.close();
 	}
@@ -77,4 +78,30 @@ public ArrayList<ItemDeUsuario> Listalogin(Context contexto, String usuario, Str
 		
 		return listaUsuario;
 	}
+
+public ArrayList<ItemConsulta> listarConsulta(Context contexto){
+	
+	ArrayList<ItemConsulta> listaConsultas=null;
+	SqlTaximetro tarjetaDB =new SqlTaximetro(contexto,DB_NAME,null,1);
+	// Referencia a la BD
+	SQLiteDatabase  db = tarjetaDB.getReadableDatabase();
+	
+	listaConsultas = new ArrayList<ItemConsulta>();
+	
+	// Consulta sobre la bd
+	Cursor cursor = db.query(TABLA_NAME, new String[]{"ruta","valor","distancia"}, 
+			null,null,null,null,null);
+	if(cursor.moveToFirst()){
+		
+		// Recorrer los resultados
+		do{
+			//falta corregir
+		//	ItemConsulta item=new ItemConsulta(cursor.getString(1),
+	    //				cursor.getString(2),cursor.getString(3));
+		//	listaConsultas.add(item);
+		}while(cursor.moveToNext());
+	}
+	
+	return listaConsultas;
+}
 }

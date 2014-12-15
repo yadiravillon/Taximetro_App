@@ -10,6 +10,7 @@ import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 
+
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -34,7 +35,7 @@ public class TaxiActivity extends Activity implements LocationListener{
 	 
 	// daclarar variable que representa al mapa
 		GoogleMap mapa;
-		Location locationI, locationF, location_variante;
+		Location locationI, locationF;
 		LocationManager locationManager;
 		String proveedor;
 		PolylineOptions polilinea_options;
@@ -134,10 +135,10 @@ public class TaxiActivity extends Activity implements LocationListener{
 			et_Llegada.setText("LAT "+latitud_final+ " LONG "+longitud_final);
 			et_Km.setText(distancia_total/1000+" Km");
 			
-			//removeUpdates -> detener nuevas actualizaciones
-			locationManager.removeUpdates(this);
 			locationI = null;
 			locationF=null;
+			//removeUpdates -> detener nuevas actualizaciones
+			locationManager.removeUpdates(this);
 		}	
 	}
 	

@@ -8,19 +8,19 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class SqlTaximetro extends SQLiteOpenHelper {
 
 	String sql = "CREATE TABLE personas (" +
-			" id INTEGER PRIMARY KEY AUTOINCREMENT," +
+			" id_p INTEGER PRIMARY KEY AUTOINCREMENT," +
 			" nombres TEXT," +
 			" apellidos TEXT," +
 			" email TEXT," +
-			" estado INTEGER )";
+			" estado TEXT )";
 	
 	String sql1 = "CREATE TABLE usuarios (" +
-			" id INTEGER PRIMARY KEY AUTOINCREMENT," +
-			" id_persona INTEGER NOT NULL" +
+			" id_u INTEGER PRIMARY KEY AUTOINCREMENT," +
+			" id_persona INTEGER NOT NULL," +
 			" usuario TEXT," +
 			" clave TEXT," +
 			" estado TEXT, " +
-			"FOREING KEY (id_persona) REFERENCES personas(id))";
+			"FOREIGN KEY (id_persona) REFERENCES personas(id_p))";
 	
 	public SqlTaximetro(Context context, String name, CursorFactory factory,
 			int version) {
@@ -46,8 +46,8 @@ public class SqlTaximetro extends SQLiteOpenHelper {
 		sqldb.execSQL("CREATE TRIGGER fk_personas" +
 			    " BEFORE" +
 			    " INSERT ON usuarios FOR EACH ROW BEGIN"+
-			    " SELECT CASE WHEN ((SELECT id FROM persona"+ 
-			    " WHERE id=new.id_persona) IS NULL)"+
+			    " SELECT CASE WHEN ((SELECT id_p FROM personas"+ 
+			    " WHERE id_p=new.id_persona) IS NULL)"+
 			    " THEN RAISE (ABORT,'Foreign Key Violation')" +
 			    " END;"+
 			    " END;");

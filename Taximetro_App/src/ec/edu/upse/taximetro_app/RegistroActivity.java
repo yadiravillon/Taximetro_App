@@ -9,6 +9,7 @@ import org.ksoap2.transport.HttpTransportSE;
 import ec.edu.upse.taximetro_app.modelo.DBTaximetro;
 
 
+
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
@@ -132,10 +133,31 @@ public class RegistroActivity extends Activity {
 		String Clave = et_contrasenia.getText().toString();
 		DBTaximetro dbTaxi = new DBTaximetro();
 		
+		if (isEmpty()){
+			Toast.makeText(this,"Falta(n)de ingresar algun(os) Campo(s)!!", Toast.LENGTH_LONG).show();
+    	}else{
 		dbTaxi.nuevoUsuario(this,Nombres, Apellidos, email, Usuario, Clave); //, nombres, apellidos, email, usuario, clave), nombres, apellidos, email, usuario, clave)//nuevoCliente(this, rucCedula, nombre, apellidos,direccion , 0.0, 0.0, rutafoto);
 		Toast.makeText(this, "Guardado", Toast.LENGTH_LONG).show();
-		
+		Limpiar();
 		Intent intent =new Intent(this,MainActivity.class);
 		startActivity(intent);
+    	}
 	}
+	
+	public boolean isEmpty(){
+		if(et_nombres.getText().toString().equals("")|| et_apellidos.getText().toString().equals("") || et_e_mail.getText().toString().equals("")|| et_usuario.getText().toString().equals("") || et_contrasenia.getText().toString().equals("") ){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	
+	public void Limpiar(){
+		et_nombres.setText("");
+		et_apellidos.setText("");
+		et_e_mail.setText("");
+		et_usuario.setText("");
+		et_contrasenia.setText("");
+	} 
 }

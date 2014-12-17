@@ -15,6 +15,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.provider.Settings;
 import android.app.Activity;
 import android.content.Context;
@@ -56,7 +57,6 @@ public class TaxiActivity extends Activity implements LocationListener{
 		
 		Inicializar();
 		
-		et_Km.setEnabled(false);
 		if(mapa==null){
 			Toast.makeText(this, "no se pudo crear mapa", Toast.LENGTH_LONG).show();
 		}else{
@@ -95,9 +95,18 @@ public class TaxiActivity extends Activity implements LocationListener{
 	 	mapa = ((MapFragment) getFragmentManager().findFragmentById(R.id.fragmentMapas)).getMap();
  	}
 	
+	
+	public void Limpiar(){
+		et_Km.setText("");
+		et_$.setText("");
+		et_Partida.setText("");
+		et_Llegada.setText("");
+	} 
+	
 	public void ON_OFF(View v){				
 		if(button_O_O.isChecked()){	// ON-----------------------------------------------------------------------------
 			CronometroTiempo.start();
+			Limpiar();
 			locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 			boolean gpsHabilitado = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
 						
@@ -133,6 +142,7 @@ public class TaxiActivity extends Activity implements LocationListener{
 		}else{
 			// APAGADO OFF
 			CronometroTiempo.stop();
+			
 			locationF = locationManager.getLastKnownLocation(proveedor);
 			latitud_final = locationF.getLatitude();
 			longitud_final = locationF.getLongitude();
@@ -145,7 +155,8 @@ public class TaxiActivity extends Activity implements LocationListener{
 			locationF=null;
 			//removeUpdates -> detener nuevas actualizaciones
 			locationManager.removeUpdates(this);
-			//CronometroTiempo
+			CronometroTiempo.setBase(SystemClock.elapsedRealtime());
+			
 		}	
 	}
 	
@@ -162,6 +173,7 @@ public class TaxiActivity extends Activity implements LocationListener{
 
 	@Override
 	public void onLocationChanged(Location location) {
+		Inicializar();
 		// TODO Auto-generated method stub
 		//int latitud = (int) location.getLatitude();
 				//int longitud = (int) location.getLongitude();
@@ -194,16 +206,18 @@ public class TaxiActivity extends Activity implements LocationListener{
 						//segundos_consumidos = segundos_consumidos + diferencia_segundos;
 					}	
 				}	
-				total_segundos =  (float) (total_segundos + 0.5);
-				distancia_total = distancia_total + (velocidad * 0.5);
+				total_segundos =  (float) (total_segundos + 0.25);
+				distancia_total = distancia_total + (velocidad * 0.25);
+				
 				Toast.makeText(this, "VEL: " + velocidad +" m/s ...Seg: "+ total_segundos, Toast.LENGTH_LONG).show();	
 				//total_segundos_p = 0;
 				velocidad =(float) 0.0;
+				et_Km.setText(distancia_total/1000+" Km");
 				//PolylineOptions pol_options = new PolylineOptions().add(latlong).color(Color.RED);
 				//Polyline polilinea2 = mapa.addPolyline(pol_options);
 		
 	}
-
+         
 	@Override
 	public void onProviderDisabled(String arg0) {
 		// TODO Auto-generated method stub

@@ -44,7 +44,7 @@
             android:layout_height="wrap_content" >
 
             <fragment
-                android:id="@+id/fragmentMapa"
+                android:id="@+id/fragmentMapas"
                 android:name="com.google.android.gms.maps.MapFragment"
                 android:layout_width="241dp"
                 android:layout_height="126dp" />
@@ -63,7 +63,7 @@
                 android:text="RECORRIDO" />
 
             <ToggleButton
-                android:id="@+id/toggleButton"
+                android:id="@+id/toggleButtonSat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="ON_OFF"
@@ -84,8 +84,8 @@
                 android:layout_height="wrap_content"
                 android:text="Tiempo:" />
 
-            <EditText
-                android:id="@+id/editTexttiempo"
+            <Chronometer android:text="TextView"
+                android:id="@+id/CronometroTiempo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10" />
@@ -103,14 +103,10 @@
                 android:layout_height="wrap_content"
                 android:text="Km:" />
 
-            <EditText
-                android:id="@+id/editTextkm"
+            <TextView
+                android:id="@+id/textViewkilo"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10" >
-
-                <requestFocus />
-            </EditText>
+                android:layout_height="wrap_content" />
 
         </TableRow>
 
@@ -125,11 +121,11 @@
                 android:layout_height="wrap_content"
                 android:text="$" />
 
-            <EditText
-                android:id="@+id/EditTextValor"
+            <TextView
+                android:id="@+id/textViewCosto"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10" />
+                android:layout_height="wrap_content" />
+
         </TableRow>
 
         <TableRow
@@ -143,11 +139,11 @@
                 android:layout_height="wrap_content"
                 android:text="Partida:" />
 
-            <EditText
-                android:id="@+id/EditTextPartida"
+            <TextView
+                android:id="@+id/textViewPartid"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10" />
+                android:layout_height="wrap_content" />
+
         </TableRow>
 
         <TableRow
@@ -161,11 +157,11 @@
                 android:layout_height="wrap_content"
                 android:text="LLegada:" />
 
-            <EditText
-                android:id="@+id/EditTextLlegada"
+            <TextView
+                android:id="@+id/textViewLlegad"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10" />
+                android:layout_height="wrap_content" />
+
         </TableRow>
 
         <TableRow

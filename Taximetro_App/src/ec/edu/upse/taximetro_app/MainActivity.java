@@ -56,7 +56,14 @@ public class MainActivity extends Activity {
     	{
     		Intent intent =new Intent(this,FuncionesActivity.class);
     		startActivity(intent);
+    		Limpiar();
+    		
     	}	
     }
+    
+    public void Limpiar(){
+		editTextUsuario.setText("");
+		editTextPassword.setText("");
+	} 
     
 }

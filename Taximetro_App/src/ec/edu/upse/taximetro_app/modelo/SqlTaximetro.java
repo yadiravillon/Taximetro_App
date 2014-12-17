@@ -22,6 +22,30 @@ public class SqlTaximetro extends SQLiteOpenHelper {
 			" estado TEXT, " +
 			"FOREIGN KEY (id_persona) REFERENCES personas(id_p))";
 	
+	String sqlcarrera = "CREATE TABLE carrera (" +
+			" id_c INTEGER PRIMARY KEY AUTOINCREMENT," +
+			" id_personas INTEGER NOT NULL," +
+			" id_tarifa INTEGER NOT NULL," +
+			" origen TEXT," +
+			" coordenada_origen DOUBLE," +
+			" destino TEXT," +
+			" coordenada_destino DOUBLE," +
+			" dia TEXT, " +
+			" mes TEXT, " +
+			" anio TEXT, " +
+			"FOREIGN KEY (id_personas) REFERENCES personas(id_p), "+
+			"FOREIGN KEY (id_tarifa) REFERENCES tarifa(id_t))";
+	
+	String sqltarifa = "CREATE TABLE tarifa (" +
+			"id_t INTEGER PRIMARY KEY AUTOINCREMENT," +
+			" descripcion TEXT," +
+			" arranque_tarifa DOUBLE," +
+			" km_recorrido DOUBLE," +
+			" min_espera DOUBLE," +
+			" carrera_min DOUBLE," +
+			" estado TEXT )" ;
+    
+	
 	public SqlTaximetro(Context context, String name, CursorFactory factory,
 			int version) {
 		super(context, name, factory, version);
@@ -42,6 +66,8 @@ public class SqlTaximetro extends SQLiteOpenHelper {
 		// TODO Auto-generated method stub
 		sqldb.execSQL(sql);
 		sqldb.execSQL(sql1);
+		sqldb.execSQL(sqlcarrera);
+		sqldb.execSQL(sqltarifa);
 		
 		sqldb.execSQL("CREATE TRIGGER fk_personas" +
 			    " BEFORE" +
@@ -51,16 +77,41 @@ public class SqlTaximetro extends SQLiteOpenHelper {
 			    " THEN RAISE (ABORT,'Foreign Key Violation')" +
 			    " END;"+
 			    " END;");
+		
+		
+		sqldb.execSQL("CREATE TRIGGER fk_persona " +
+			    " BEFORE INSERT ON carrera FOR EACH ROW BEGIN"+
+			    " SELECT CASE WHEN ((SELECT p.id_p FROM personas p "+ 
+			    " WHERE p.id_p=new.id_personas) IS NULL)"+
+			    " THEN RAISE (ABORT,'Foreign Key Violation') END;"+
+			    "  END;");
+		
+		sqldb.execSQL("CREATE TRIGGER fk_tarifa " +
+			    " BEFORE INSERT ON carrera FOR EACH ROW BEGIN"+
+			    " SELECT CASE WHEN ((SELECT t.id_t FROM tarifa t"+ 
+			    " WHERE t.id_t=new.id_tarifa) IS NULL)"+
+			    " THEN RAISE (ABORT,'Foreign Key Violation') END;"+
+			    "  END;");
+		
+		
+		
+		sqldb.execSQL("INSERT INTO tarifa VALUES(NULL, 'Diurna',0.35,0.26,0.06,1.00,'A')");
+		sqldb.execSQL("INSERT INTO tarifa VALUES(NULL, 'Nocturna',0.40,0.30,0.06,1.10,'A')");
+		
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase sqldb, int arg1, int arg2) {
 		// TODO Auto-generated method stub
+		sqldb.execSQL("DROP TABLE IF EXISTS tarifa");
 		sqldb.execSQL("DROP TABLE IF EXISTS personas");
 		sqldb.execSQL("DROP TABLE IF EXISTS usuarios");
+		sqldb.execSQL("DROP TABLE IF EXISTS carrera");
 	        //Se crea la nueva versión de la tabla
 	        sqldb.execSQL(sql);
 	        sqldb.execSQL(sql1);
+	        sqldb.execSQL(sqltarifa);
+	        sqldb.execSQL(sqlcarrera);
 	}
 
 }

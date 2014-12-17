@@ -14,6 +14,9 @@ public class DBTaximetro {
 
 	private static final String TABLA_NAME = "personas";
 	private static final String TABLA_NAME1 = "usuarios";
+	private static final String TABLA_NAME2 = "carrera";
+	private static final String TABLA_NAME3 = "tarifa";
+	
 	private static final String DB_NAME = "DBTaximetro";
 	
 	public void nuevoUsuario(Context contexto, String nombres, String apellidos,
@@ -64,7 +67,7 @@ public ArrayList<ItemDeUsuario> Listalogin(Context contexto, String usuario, Str
 		//null,null,null,null,"tar_nombre");
 		// si es que existe al menos un resultado
 		String[] parametrosDeBusqueda = new String[]{usuario,clave};
-		String sql = "SELECT * FROM "+TABLA_NAME1 + " WHERE usuario = ? and clave = ?";
+		String sql = "SELECT * FROM "+TABLA_NAME1+ " WHERE usuario = ? and clave = ?";
 		Cursor cursor = db.rawQuery(sql, parametrosDeBusqueda);
 			
 						if(cursor.moveToFirst()){
@@ -89,7 +92,7 @@ public ArrayList<ItemConsulta> listarConsulta(Context contexto){
 	listaConsultas = new ArrayList<ItemConsulta>();
 	
 	// Consulta sobre la bd
-	Cursor cursor = db.query(TABLA_NAME, new String[]{"ruta","valor","distancia"}, 
+	Cursor cursor = db.query(TABLA_NAME2, new String[]{"ruta","valor","distancia"}, 
 			null,null,null,null,null);
 	if(cursor.moveToFirst()){
 		

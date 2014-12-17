@@ -38,7 +38,7 @@ public class CustomListViewAdapter extends ArrayAdapter<ItemConsulta> {
             
             holder = new ViewHolder();
             holder.txtRuta = (TextView) convertView.findViewById(R.id.textView1Ruta);
-            holder.txtValor = (TextView) convertView.findViewById(R.id.textViewValor);
+          //  holder.txtValor = (TextView) convertView.findViewById(R.id.textViewValor);
             holder.txtDistancia = (TextView) convertView.findViewById(R.id.textViewDistancia);
             
             convertView.setTag(holder);

@@ -23,15 +23,18 @@ import android.graphics.Color;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
 public class TaxiActivity extends Activity implements LocationListener{
 	
-	EditText et_Km, et_$,et_Partida, et_Llegada, et_tiempo;
+	TextView et_Km, et_$,et_Partida, et_Llegada;
 	Button Guardar, Cancelar;
 	ToggleButton button_O_O;
+    Chronometer CronometroTiempo;
 	 
 	// daclarar variable que representa al mapa
 		GoogleMap mapa;
@@ -53,6 +56,7 @@ public class TaxiActivity extends Activity implements LocationListener{
 		
 		Inicializar();
 		
+		et_Km.setEnabled(false);
 		if(mapa==null){
 			Toast.makeText(this, "no se pudo crear mapa", Toast.LENGTH_LONG).show();
 		}else{
@@ -82,17 +86,18 @@ public class TaxiActivity extends Activity implements LocationListener{
 	}
 	
 	public void Inicializar(){
-		et_tiempo = (EditText) findViewById(R.id.editTexttiempo);
-		et_Km = (EditText) findViewById(R.id.editTextkm);
-		et_$ = (EditText) findViewById(R.id.EditTextValor);
-		et_Partida = (EditText) findViewById(R.id.EditTextPartida);
-		et_Llegada = (EditText) findViewById(R.id.EditTextLlegada);
-		button_O_O = (ToggleButton) findViewById(R.id.toggleButton);
-	 	mapa = ((MapFragment) getFragmentManager().findFragmentById(R.id.fragmentMapa)).getMap();
+		CronometroTiempo = (Chronometer) findViewById(R.id.CronometroTiempo);
+		et_Km = (TextView) findViewById(R.id.textViewkilo);
+		et_$ = (TextView) findViewById(R.id.textViewCosto);
+		et_Partida = (TextView) findViewById(R.id.textViewPartid);
+		et_Llegada = (TextView) findViewById(R.id.textViewLlegad);
+		button_O_O = (ToggleButton) findViewById(R.id.toggleButtonSat);
+	 	mapa = ((MapFragment) getFragmentManager().findFragmentById(R.id.fragmentMapas)).getMap();
  	}
 	
 	public void ON_OFF(View v){				
 		if(button_O_O.isChecked()){	// ON-----------------------------------------------------------------------------
+			CronometroTiempo.start();
 			locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 			boolean gpsHabilitado = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
 						
@@ -127,11 +132,12 @@ public class TaxiActivity extends Activity implements LocationListener{
 			
 		}else{
 			// APAGADO OFF
+			CronometroTiempo.stop();
 			locationF = locationManager.getLastKnownLocation(proveedor);
 			latitud_final = locationF.getLatitude();
 			longitud_final = locationF.getLongitude();
 			agregarMarca(latitud_final, longitud_final, "PUNTO DE LLEGADA", "Ubicación Final");
-			et_tiempo.setText(total_segundos/3600 + "h");
+			//et_tiempo.setText(total_segundos/3600 + "h");
 			et_Llegada.setText("LAT "+latitud_final+ " LONG "+longitud_final);
 			et_Km.setText(distancia_total/1000+" Km");
 			
@@ -139,6 +145,7 @@ public class TaxiActivity extends Activity implements LocationListener{
 			locationF=null;
 			//removeUpdates -> detener nuevas actualizaciones
 			locationManager.removeUpdates(this);
+			//CronometroTiempo
 		}	
 	}
 	

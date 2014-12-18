@@ -53,6 +53,19 @@ public class DBTaximetro {
 		dbg.close();
 	}
 	
+	
+	public void nuevaCarrera(Context contexto, Double km, Double valor,Double coordenada_origen, Double coordenada_destino ){
+		
+		SqlTaximetro carrera= new SqlTaximetro(contexto, DB_NAME, null, 1);
+		SQLiteDatabase db = carrera.getWritableDatabase();
+		
+		if (db!=null){
+			db.execSQL("INSERT INTO "+TABLA_NAME2 +" VALUES (NULL," +km+ ","+valor+", "+coordenada_origen+","+coordenada_origen+")");
+		}
+		db.close();
+			}
+	
+	
 public ArrayList<ItemDeUsuario> Listalogin(Context contexto, String usuario, String clave){
 		
 		ArrayList<ItemDeUsuario> listaUsuario=null;

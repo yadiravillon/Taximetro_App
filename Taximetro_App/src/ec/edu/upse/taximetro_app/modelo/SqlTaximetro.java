@@ -26,6 +26,8 @@ public class SqlTaximetro extends SQLiteOpenHelper {
 			" id_c INTEGER PRIMARY KEY AUTOINCREMENT," +
 			" id_personas INTEGER NOT NULL," +
 			" id_tarifa INTEGER NOT NULL," +
+			" km DOUBLE," +
+			" valor DOUBLE," +
 			" origen TEXT," +
 			" coordenada_origen DOUBLE," +
 			" destino TEXT," +

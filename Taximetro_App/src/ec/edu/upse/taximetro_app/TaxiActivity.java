@@ -12,8 +12,10 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import ec.edu.upse.taximetro_app.modelo.Carrera;
 import ec.edu.upse.taximetro_app.modelo.DBTaximetro;
 import ec.edu.upse.taximetro_app.modelo.Tarifa;
+
 
 
 
@@ -178,9 +180,30 @@ public class TaxiActivity extends Activity implements LocationListener{
 		startActivity(intent);
 	}
 	
-	public void onGuardar(View boton){
-		
+	public boolean isEmpty(){
+		if(et_Km.getText().toString().equals("")|| et_$.getText().toString().equals("") || et_Partida.getText().toString().equals("") || et_Llegada.getText().toString().equals("")){
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
+	
+/*	public void onGuardar(View boton){
+		Inicializar();
+		
+		
+		DBTaximetro dbTaxi = new DBTaximetro();
+    	if (isEmpty()){
+    		Toast.makeText(this,"Algun(os) Campo(s) stán vacios!!", Toast.LENGTH_LONG).show();
+    	}else{
+	    		Carrera cr=new Carrera(0,et_Km.toString(), et_$.getText().toString(), et_Partida.getText().toString(), et_Llegada.getText().toString());
+	    		dbTaxi.nuevaCarrera(this, cr.getIdCarrera(), cr.getIdPersonas(), cr.getIdTarifa(), cr.getKm(),cr.getValor(),cr.getOrigen(),cr.getCordenada_origen(),cr.getDestino(), cr.getCordenada_destino(),cr.getDia(),cr.getMes(),cr.getAnio());
+	    		Toast.makeText(this,"Carrera Registrada exitosamente", Toast.LENGTH_SHORT).show();
+	    		Limpiar();		
+    	}	
+	}*/
+	
 Double Tarifa_inicial;
 	@Override
 	public void onLocationChanged(Location location) {

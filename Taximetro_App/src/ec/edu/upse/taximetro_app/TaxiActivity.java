@@ -189,6 +189,8 @@ public class TaxiActivity extends Activity implements LocationListener{
 		}
 	}
 	
+	//jimmy ahi esta corrige k algo sale mal... las otras modificacines ya se guardaron
+	
 /*	public void onGuardar(View boton){
 		Inicializar();
 		

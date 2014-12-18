@@ -1,5 +1,8 @@
 package ec.edu.upse.taximetro_app;
 
+import java.util.ArrayList;
+import java.util.Date;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -8,6 +11,9 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
+
+import ec.edu.upse.taximetro_app.modelo.DBTaximetro;
+import ec.edu.upse.taximetro_app.modelo.Tarifa;
 
 
 
@@ -49,14 +55,13 @@ public class TaxiActivity extends Activity implements LocationListener{
 		//variables de ubicacion
 		double latitud_inicio, longitud_inicio, latitud_final, longitud_final, distancia_total=0;
 		int segundos_consumidos=0, total_segundos_p=0;
-	 
+	 ArrayList<Tarifa> tarifa = new ArrayList<Tarifa>();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_taxi);
 		
 		Inicializar();
-		
 		if(mapa==null){
 			Toast.makeText(this, "no se pudo crear mapa", Toast.LENGTH_LONG).show();
 		}else{
@@ -64,8 +69,9 @@ public class TaxiActivity extends Activity implements LocationListener{
 			mapa.getUiSettings().setZoomControlsEnabled(true);
 			mapa.getUiSettings().setCompassEnabled(true);
 		}
+		
 	}
-
+	
 	
 	public void agregarMarca(double latitud, double longitud, String titulo, String mensaje){
 		MarkerOptions marca = new MarkerOptions();
@@ -133,8 +139,13 @@ public class TaxiActivity extends Activity implements LocationListener{
 				polilinea_options = new PolylineOptions().add(latlng).color(Color.RED);
 				polilinea = mapa.addPolyline(polilinea_options);
 				et_Partida.setText("LAT "+latitud_inicio+ " LONG "+longitud_inicio);
+				DBTaximetro db = new DBTaximetro();
+				Date hora =new Date();
+				Integer v_hora = hora.getHours();
+				tarifa = db.selectAllTarifa(this, v_hora);
+				
 				//ACTUALIZACIÓN DE LA LOCALIZACIÓN...PROVEEDOR, MILISEGUNDOS, METROS, ACTIVIDAD
-				locationManager.requestLocationUpdates(proveedor, 500, 0, this);
+				locationManager.requestLocationUpdates(proveedor, 250, 0, this);
 			}else{
 				Toast.makeText(this, "location es null", Toast.LENGTH_SHORT).show();
 			}
@@ -170,7 +181,7 @@ public class TaxiActivity extends Activity implements LocationListener{
 	public void onGuardar(View boton){
 		
 	}
-
+Double Tarifa_inicial;
 	@Override
 	public void onLocationChanged(Location location) {
 		Inicializar();
@@ -179,17 +190,22 @@ public class TaxiActivity extends Activity implements LocationListener{
 				//int longitud = (int) location.getLongitude();
 				//LatLng latlong = new LatLng(latitud, longitud);
 				float velocidad = location.getSpeed();
-				
 				//int total_segundos_i=0, diferencia_segundos=0;
 				
 				if(velocidad > 0.0){
 					Toast.makeText(this, "velocidad > 0", Toast.LENGTH_LONG).show();
-					//cronometro.start();
-					//String tiempo_i = cronometro.getText().toString();
-					//int minutos_i = Integer.valueOf(tiempo_i.substring(0,2));
-					//int segundos_i = Integer.valueOf(tiempo_i.substring(3,5));
-					//total_segundos_i = (minutos_i * 60) + segundos_i;
+					String tiempo_i = CronometroTiempo.getText().toString();
+					int minutos_i = Integer.valueOf(tiempo_i.substring(0,2));
+					int segundos_i = Integer.valueOf(tiempo_i.substring(3,5));
+					Integer total_segundos_i = (minutos_i * 60) + segundos_i;
+					Tarifa_inicial = tarifa.get(0).getArranque_tarifa();
 					
+					if(total_segundos == 10){
+						Tarifa_inicial = Tarifa_inicial + 0.01;
+					}
+					if(distancia_total == 38){
+						distancia_total = distancia_total + 0.01;
+					}
 				}
 				else{
 					if(velocidad == 0.0){

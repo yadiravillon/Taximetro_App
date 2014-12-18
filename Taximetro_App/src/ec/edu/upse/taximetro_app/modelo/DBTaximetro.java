@@ -82,14 +82,21 @@ public ArrayList<ItemDeUsuario> Listalogin(Context contexto, String usuario, Str
 		return listaUsuario;
 	}
 
-public ArrayList<Tarifa> selectAllTarifa(Context contexto){
+public ArrayList<Tarifa> selectAllTarifa(Context contexto,Integer hora){
 	ArrayList<Tarifa> Lista= new ArrayList<Tarifa>();
 	SqlTaximetro tarjetaDB =new SqlTaximetro(contexto,DB_NAME,null,1);
 	SQLiteDatabase  db = tarjetaDB.getReadableDatabase();
 String[] parametrosDeBusqueda=null;;
-String sql="SELECT id_t, descripcion, arranque_tarifa, km_recorrido, min_espera, carrera_min, estado FROM "+TABLA_NAME3+" WHERE estado='A'";
-Cursor cursor=db.rawQuery(sql, parametrosDeBusqueda);
+String sql="";
+if(hora<22){
+	sql="SELECT id_t, descripcion, arranque_tarifa, km_recorrido, min_espera, carrera_min, estado FROM "+TABLA_NAME3+" WHERE estado='A' and descripcion='Diurno'";
+}
+if(hora >= 22){
+	sql="SELECT id_t, descripcion, arranque_tarifa, km_recorrido, min_espera, carrera_min, estado FROM "+TABLA_NAME3+" WHERE estado='A' and descripcion='Nocturna'";
 
+}
+
+Cursor cursor=db.rawQuery(sql, parametrosDeBusqueda);
 if(cursor.moveToFirst()){
 	
 	// Recorrer los resultados

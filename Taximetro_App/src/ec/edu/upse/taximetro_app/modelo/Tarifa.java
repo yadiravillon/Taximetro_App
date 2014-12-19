@@ -8,6 +8,11 @@ public class Tarifa {
 	private Double min_espera;
 	private Double carrera_min;
 	private String estado;
+	
+	public Tarifa() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public Tarifa(int id, String descripcion, Double arranque_tarifa,
 			Double km_recorrido, Double min_espera, Double carrera_min,
 			String estado) {

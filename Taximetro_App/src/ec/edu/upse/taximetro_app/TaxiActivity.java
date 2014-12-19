@@ -40,12 +40,12 @@ import android.widget.ToggleButton;
 
 public class TaxiActivity extends Activity implements LocationListener{
 	
-	TextView et_Km, et_$,et_Partida, et_Llegada;
+	TextView et_Km, et_$,et_Partida, et_Llegada, et_TipoTarifa;
 	Button Guardar, Cancelar;
 	ToggleButton button_O_O;
     Chronometer CronometroTiempo;
-	 
-	// daclarar variable que representa al mapa
+    
+		// daclarar variable que representa al mapa
 		GoogleMap mapa;
 		Location locationI, locationF;
 		LocationManager locationManager;
@@ -56,14 +56,34 @@ public class TaxiActivity extends Activity implements LocationListener{
 		
 		//variables de ubicacion
 		double latitud_inicio, longitud_inicio, latitud_final, longitud_final, distancia_total=0;
+		
+		//variables para el calculo de la carrera
 		int segundos_consumidos=0, total_segundos_p=0;
-	 ArrayList<Tarifa> tarifa = new ArrayList<Tarifa>();
-	@Override
+		Tarifa tarifa = new Tarifa();
+		Double Tarifa_arranque, Tarifa_minima, costo_km, costo_min_espera,costoTotalCarrera;
+		String TipoTarifa;	
+		Integer total_segundos_i;
+		
+	 @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_taxi);
-		
 		Inicializar();
+			DBTaximetro db = new DBTaximetro();
+			Date hora =new Date();
+			Integer v_hora = hora.getHours();
+			tarifa = db.selectAllTarifa(this, v_hora);
+			if(tarifa != null){
+				Tarifa_arranque = tarifa.getArranque_tarifa();
+				Tarifa_minima = tarifa.getCarrera_min();
+				costo_km = tarifa.getKm_recorrido();
+				costo_min_espera = tarifa.getMin_espera();
+				TipoTarifa = tarifa.getDescripcion();
+				//Toast.makeText(this,""+v_hora, Toast.LENGTH_LONG).show();
+				et_TipoTarifa.setText(TipoTarifa);
+				costoTotalCarrera = 0.0;
+				costoTotalCarrera = costoTotalCarrera + Tarifa_arranque;
+			}
 		if(mapa==null){
 			Toast.makeText(this, "no se pudo crear mapa", Toast.LENGTH_LONG).show();
 		}else{
@@ -94,6 +114,7 @@ public class TaxiActivity extends Activity implements LocationListener{
 	}
 	
 	public void Inicializar(){
+		et_TipoTarifa = (TextView) findViewById(R.id.textViewTipoTarifa);
 		CronometroTiempo = (Chronometer) findViewById(R.id.CronometroTiempo);
 		et_Km = (TextView) findViewById(R.id.textViewkilo);
 		et_$ = (TextView) findViewById(R.id.textViewCosto);
@@ -141,10 +162,6 @@ public class TaxiActivity extends Activity implements LocationListener{
 				polilinea_options = new PolylineOptions().add(latlng).color(Color.RED);
 				polilinea = mapa.addPolyline(polilinea_options);
 				et_Partida.setText("LAT "+latitud_inicio+ " LONG "+longitud_inicio);
-				DBTaximetro db = new DBTaximetro();
-				Date hora =new Date();
-				Integer v_hora = hora.getHours();
-				tarifa = db.selectAllTarifa(this, v_hora);
 				
 				//ACTUALIZACIÓN DE LA LOCALIZACIÓN...PROVEEDOR, MILISEGUNDOS, METROS, ACTIVIDAD
 				locationManager.requestLocationUpdates(proveedor, 250, 0, this);
@@ -169,7 +186,6 @@ public class TaxiActivity extends Activity implements LocationListener{
 			//removeUpdates -> detener nuevas actualizaciones
 			locationManager.removeUpdates(this);
 			CronometroTiempo.setBase(SystemClock.elapsedRealtime());
-			
 		}	
 	}
 	
@@ -205,53 +221,40 @@ public class TaxiActivity extends Activity implements LocationListener{
 	    		Limpiar();		
     	}	
 	}*/
-	
-Double Tarifa_inicial;
+	 
 	@Override
 	public void onLocationChanged(Location location) {
 		Inicializar();
 		// TODO Auto-generated method stub
-		//int latitud = (int) location.getLatitude();
-				//int longitud = (int) location.getLongitude();
-				//LatLng latlong = new LatLng(latitud, longitud);
 				float velocidad = location.getSpeed();
-				//int total_segundos_i=0, diferencia_segundos=0;
-				
-				if(velocidad > 0.0){
-					Toast.makeText(this, "velocidad > 0", Toast.LENGTH_LONG).show();
-					String tiempo_i = CronometroTiempo.getText().toString();
-					int minutos_i = Integer.valueOf(tiempo_i.substring(0,2));
-					int segundos_i = Integer.valueOf(tiempo_i.substring(3,5));
-					Integer total_segundos_i = (minutos_i * 60) + segundos_i;
-					Tarifa_inicial = tarifa.get(0).getArranque_tarifa();
-					
-					if(total_segundos == 10){
-						Tarifa_inicial = Tarifa_inicial + 0.01;
-					}
-					if(distancia_total == 38){
-						distancia_total = distancia_total + 0.01;
-					}
-				}
-				else{
-					if(velocidad == 0.0){
-						//TARIFA DE PARADA
-						Toast.makeText(this, "velocidad = 0", Toast.LENGTH_LONG).show();
-						//cronometro.stop();
-						//cronometro.setBase(diferencia_segundos);
-						//cronometro.setBase(SystemClock.elapsedRealtime()-segundos_consumidos*1000);
-						//String tiempo_parada= cronometro.getText().toString();
-						//int minutos_p = Integer.valueOf(tiempo_parada.substring(0,2));
-						//int segundos_p = Integer.valueOf(tiempo_parada.substring(3,5));
-						//total_segundos_p = (minutos_p * 60) + segundos_p;
-						//diferencia_segundos = total_segundos_p - total_segundos_i;
-						//segundos_consumidos = segundos_consumidos + diferencia_segundos;
-					}	
-				}	
 				total_segundos =  (float) (total_segundos + 0.25);
 				distancia_total = distancia_total + (velocidad * 0.25);
-				
+				Integer metros_comparacion = 0;
+				Double cambio_velocidad = 3.33; //m/seg
+				if(TipoTarifa.equalsIgnoreCase("diurna")){
+					metros_comparacion = 38; //metros
+				}else{
+					metros_comparacion = 33; //metros
+				}
+					// preguntar si la velocidad es mayor o igual de 12km/h = 3.333 m/seg
+					if(velocidad > cambio_velocidad){
+						//el costo de la carrera se calcula por la distancia recorrida
+						if(distancia_total%metros_comparacion == 0){
+							costoTotalCarrera += 0.01;
+						}
+						//costoTotalCarrera
+					}else{
+						//el costo de la carrera se calcula por el tiempo transcurrido
+						String tiempo_i = CronometroTiempo.getText().toString();
+						int minutos_i = Integer.valueOf(tiempo_i.substring(0,2));
+						int segundos_i = Integer.valueOf(tiempo_i.substring(3,5));
+						total_segundos_i = (minutos_i * 60) + segundos_i;
+						if(segundos_i%10 == 0){
+							costoTotalCarrera += 0.01;
+						}
+					}
 				Toast.makeText(this, "VEL: " + velocidad +" m/s ...Seg: "+ total_segundos, Toast.LENGTH_LONG).show();	
-				//total_segundos_p = 0;
+				et_$.setText(""+costoTotalCarrera);
 				velocidad =(float) 0.0;
 				et_Km.setText(distancia_total/1000+" Km");
 				//PolylineOptions pol_options = new PolylineOptions().add(latlong).color(Color.RED);

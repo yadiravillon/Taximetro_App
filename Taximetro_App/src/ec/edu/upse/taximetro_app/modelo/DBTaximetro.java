@@ -95,31 +95,35 @@ public ArrayList<ItemDeUsuario> Listalogin(Context contexto, String usuario, Str
 		return listaUsuario;
 	}
 
-public ArrayList<Tarifa> selectAllTarifa(Context contexto,Integer hora){
-	ArrayList<Tarifa> Lista= new ArrayList<Tarifa>();
+public Tarifa selectAllTarifa(Context contexto,Integer hora){
+	Tarifa Lista= new Tarifa();
 	SqlTaximetro tarjetaDB =new SqlTaximetro(contexto,DB_NAME,null,1);
 	SQLiteDatabase  db = tarjetaDB.getReadableDatabase();
-String[] parametrosDeBusqueda=null;;
-String sql="";
-if(hora<22){
-	sql="SELECT id_t, descripcion, arranque_tarifa, km_recorrido, min_espera, carrera_min, estado FROM "+TABLA_NAME3+" WHERE estado='A' and descripcion='Diurno'";
-}
-if(hora >= 22){
-	sql="SELECT id_t, descripcion, arranque_tarifa, km_recorrido, min_espera, carrera_min, estado FROM "+TABLA_NAME3+" WHERE estado='A' and descripcion='Nocturna'";
-
-}
-
-Cursor cursor=db.rawQuery(sql, parametrosDeBusqueda);
-if(cursor.moveToFirst()){
-	
+	String[] parametrosDeBusqueda=null;
+	String sql="";
+	if(hora > 5 && hora<22){
+		sql="SELECT id_t, descripcion, arranque_tarifa, km_recorrido, min_espera, carrera_min, estado FROM "+TABLA_NAME3+" WHERE estado='A' and descripcion='Diurna'";
+	}
+	if(hora >= 22 || (hora >=0 && hora<=5)){
+		sql="SELECT id_t, descripcion, arranque_tarifa, km_recorrido, min_espera, carrera_min, estado FROM "+TABLA_NAME3+" WHERE estado='A' and descripcion='Nocturna'";
+	}
+	Cursor cursor=db.rawQuery(sql, parametrosDeBusqueda);
+	if(cursor.moveToFirst()){
 	// Recorrer los resultados
-	do{
-		Tarifa tarif =new Tarifa(cursor.getInt(0),cursor.getString(1),
-				cursor.getDouble(2),cursor.getDouble(3),cursor.getDouble(4),cursor.getDouble(5),cursor.getString(6));
-		Lista.add(tarif);
-	}while(cursor.moveToNext());
-}
-return Lista;
+		do{
+			//Tarifa tarif =new Tarifa(cursor.getInt(0),cursor.getString(1),
+				//cursor.getDouble(2),cursor.getDouble(3),cursor.getDouble(4),cursor.getDouble(5),cursor.getString(6));
+			Lista.setId(cursor.getInt(0));
+			Lista.setDescripcion(cursor.getString(1));
+			Lista.setArranque_tarifa(cursor.getDouble(2));
+			Lista.setKm_recorrido(cursor.getDouble(3));
+			Lista.setMin_espera(cursor.getDouble(4));
+			Lista.setCarrera_min(cursor.getDouble(5));
+			Lista.setEstado(cursor.getString(6));
+			
+		}while(cursor.moveToNext());
+	}
+	return Lista;
 }
 
 

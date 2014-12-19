@@ -23,7 +23,7 @@ public class FuncionesActivity extends Activity {
 	
 	
 	public void onInicio(View boton){
-		Intent intent =new Intent(this,MapaActivity.class);
+		Intent intent =new Intent(this,TaxiActivity.class);
 		startActivity(intent);
 	}
 	

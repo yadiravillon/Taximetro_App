@@ -24,5 +24,6 @@
     <string name="Satelite">Satélite</string>
     <string name="Normal">Normal</string>
     <string name="title_activity_mapas">MapasActivity</string>
+    <string name="Tipo_tarifa">Tipo de Tarifa</string>
 
 </resources>

@@ -1,0 +1,57 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayout2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".MapaActivity" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/buttonUbicar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onUbicar"
+            android:text="Mi Ubicación" />
+
+        <ToggleButton
+            android:id="@+id/toggleButtonSat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="cambiarMapa"
+            android:text="ToggleButton"
+            android:textOff="@string/Satelite"
+            android:textOn="@string/Normal" />
+
+    </LinearLayout>
+
+    <fragment
+        android:id="@+id/fragmentMapas"
+        android:name="com.google.android.gms.maps.MapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="266dp"
+        android:layout_weight="0.35" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/buttonIr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:onClick="irTaximetro"
+            android:text="Ir a Taximetro" />
+
+    </RelativeLayout>
+
+</LinearLayout>

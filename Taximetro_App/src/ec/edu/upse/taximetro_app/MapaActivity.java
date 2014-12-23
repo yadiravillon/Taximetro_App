@@ -7,8 +7,6 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-
-
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -82,10 +80,12 @@ public class MapaActivity extends Activity implements LocationListener{
 			}
 		}
 
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_mapa);
+		
 		mapa = ((MapFragment)getFragmentManager().findFragmentById(R.id.fragmentMapas)).getMap();
 		//comprobacion
 		if(mapa==null){
@@ -144,7 +144,6 @@ public void agregarMarca(double latitud, double longitud, String titulo, String 
 		getMenuInflater().inflate(R.menu.mapa, menu);
 		return true;
 	}
-
 	@Override
 	public void onLocationChanged(Location arg0) {
 		// TODO Auto-generated method stub
@@ -170,4 +169,3 @@ public void agregarMarca(double latitud, double longitud, String titulo, String 
 	}
 
 }
-

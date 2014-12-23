@@ -1,6 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/LinearLayout2"
+    android:id="@+id/LinearLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -29,7 +29,6 @@
             android:text="ToggleButton"
             android:textOff="@string/Satelite"
             android:textOn="@string/Normal" />
-
     </LinearLayout>
 
     <fragment
@@ -51,7 +50,6 @@
             android:layout_centerHorizontal="true"
             android:onClick="irTaximetro"
             android:text="Ir a Taximetro" />
-
     </RelativeLayout>
 
 </LinearLayout>

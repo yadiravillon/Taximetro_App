@@ -53,17 +53,36 @@ public class DBTaximetro {
 		dbg.close();
 	}
 	
+	/*String sqlcarrera = "CREATE TABLE carrera (" +
+			" id_c INTEGER PRIMARY KEY AUTOINCREMENT," +
+			" id_usuario INTEGER NOT NULL," +
+			" id_tarifa INTEGER NOT NULL," +
+			" km DOUBLE," +
+			" valor DOUBLE," +
+			" origen TEXT," +
+			" coordenada_origen DOUBLE," +
+			" destino TEXT," +
+			" coordenada_destino DOUBLE," +
+			" fecha TEXT, " +
+			" duracion_carrera TEXT, " +
+			"FOREIGN KEY (id_usuario) REFERENCES usuarios(id_u), "+
+			"FOREIGN KEY (id_tarifa) REFERENCES tarifa(id_t))";
+	*/
 	
-	public void nuevaCarrera(Context contexto, Double km, Double valor,Double coordenada_origen, Double coordenada_destino ){
-		
+	public void nuevaCarrera(Context contexto,Integer id_usuario, Integer id_tarifa, Double km, Double valor,
+			String origen, Double latitud_origen,Double longitud_origen, String destino, 
+			Double latitud_destino,Double longitud_destino, String fecha, String duracion_carrera ){
 		SqlTaximetro carrera= new SqlTaximetro(contexto, DB_NAME, null, 1);
 		SQLiteDatabase db = carrera.getWritableDatabase();
 		
 		if (db!=null){
-			db.execSQL("INSERT INTO "+TABLA_NAME2 +" VALUES (NULL," +km+ ","+valor+", "+coordenada_origen+","+coordenada_origen+")");
+			db.execSQL("INSERT INTO "+TABLA_NAME2 +" VALUES (NULL,"+id_usuario+ ","+id_tarifa+ ", " +
+					""+km+ ","+valor+", '"+origen+ "', "+latitud_origen+","+longitud_origen+", " +
+							"'"+destino+ "',"+latitud_destino+","+longitud_destino+",'"+fecha+ "'," +
+									"'"+duracion_carrera+"')");
 		}
 		db.close();
-			}
+	}
 	
 	
 public ArrayList<ItemDeUsuario> Listalogin(Context contexto, String usuario, String clave){
@@ -127,6 +146,7 @@ public Tarifa selectAllTarifa(Context contexto,Integer hora){
 }
 
 
+
 public ArrayList<ItemConsulta> listarConsulta(Context contexto){
 	
 	ArrayList<ItemConsulta> listaConsultas=null;
@@ -152,11 +172,6 @@ public ArrayList<ItemConsulta> listarConsulta(Context contexto){
 	
 	return listaConsultas;
 }
-
-
-
-
-
 
 
 }

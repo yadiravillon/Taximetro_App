@@ -7,17 +7,21 @@ public class Carrera {
 	private Double km;
 	private Double valor;
 	private String origen;
-	private Double cordenada_origen; 
+	private Double latitud_origen;
+	private Double longitud_origen;
 	private String destino;
-	private Double cordenada_destino; 
-	private String dia; 
-	private String mes;
-	private String anio;
-	
+	private Double latitud_destino; 
+	private Double longitud_destino;
+	private String fecha;
+	private String Tiempo_carrera;
+	public Carrera() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public Carrera(int idCarrera, int idPersonas, int idTarifa, Double km,
-			Double valor, String origen, Double cordenada_origen,
-			String destino, Double cordenada_destino, String dia, String mes,
-			String anio) {
+			Double valor, String origen, Double latitud_origen,
+			Double longitud_origen, String destino, Double latitud_destino,
+			Double longitud_destino, String fecha, String tiempo_carrera) {
 		super();
 		this.idCarrera = idCarrera;
 		this.idPersonas = idPersonas;
@@ -25,109 +29,91 @@ public class Carrera {
 		this.km = km;
 		this.valor = valor;
 		this.origen = origen;
-		this.cordenada_origen = cordenada_origen;
+		this.latitud_origen = latitud_origen;
+		this.longitud_origen = longitud_origen;
 		this.destino = destino;
-		this.cordenada_destino = cordenada_destino;
-		this.dia = dia;
-		this.mes = mes;
-		this.anio = anio;
+		this.latitud_destino = latitud_destino;
+		this.longitud_destino = longitud_destino;
+		this.fecha = fecha;
+		Tiempo_carrera = tiempo_carrera;
 	}
-
 	public int getIdCarrera() {
 		return idCarrera;
 	}
-
 	public void setIdCarrera(int idCarrera) {
 		this.idCarrera = idCarrera;
 	}
-
 	public int getIdPersonas() {
 		return idPersonas;
 	}
-
 	public void setIdPersonas(int idPersonas) {
 		this.idPersonas = idPersonas;
 	}
-
 	public int getIdTarifa() {
 		return idTarifa;
 	}
-
 	public void setIdTarifa(int idTarifa) {
 		this.idTarifa = idTarifa;
 	}
-
 	public Double getKm() {
 		return km;
 	}
-
 	public void setKm(Double km) {
 		this.km = km;
 	}
-
 	public Double getValor() {
 		return valor;
 	}
-
 	public void setValor(Double valor) {
 		this.valor = valor;
 	}
-
 	public String getOrigen() {
 		return origen;
 	}
-
 	public void setOrigen(String origen) {
 		this.origen = origen;
 	}
-
-	public Double getCordenada_origen() {
-		return cordenada_origen;
+	public Double getLatitud_origen() {
+		return latitud_origen;
 	}
-
-	public void setCordenada_origen(Double cordenada_origen) {
-		this.cordenada_origen = cordenada_origen;
+	public void setLatitud_origen(Double latitud_origen) {
+		this.latitud_origen = latitud_origen;
 	}
-
+	public Double getLongitud_origen() {
+		return longitud_origen;
+	}
+	public void setLongitud_origen(Double longitud_origen) {
+		this.longitud_origen = longitud_origen;
+	}
 	public String getDestino() {
 		return destino;
 	}
-
 	public void setDestino(String destino) {
 		this.destino = destino;
 	}
-
-	public Double getCordenada_destino() {
-		return cordenada_destino;
+	public Double getLatitud_destino() {
+		return latitud_destino;
 	}
-
-	public void setCordenada_destino(Double cordenada_destino) {
-		this.cordenada_destino = cordenada_destino;
+	public void setLatitud_destino(Double latitud_destino) {
+		this.latitud_destino = latitud_destino;
 	}
-
-	public String getDia() {
-		return dia;
+	public Double getLongitud_destino() {
+		return longitud_destino;
 	}
-
-	public void setDia(String dia) {
-		this.dia = dia;
+	public void setLongitud_destino(Double longitud_destino) {
+		this.longitud_destino = longitud_destino;
 	}
-
-	public String getMes() {
-		return mes;
+	public String getFecha() {
+		return fecha;
 	}
-
-	public void setMes(String mes) {
-		this.mes = mes;
+	public void setFecha(String fecha) {
+		this.fecha = fecha;
 	}
-
-	public String getAnio() {
-		return anio;
+	public String getTiempo_carrera() {
+		return Tiempo_carrera;
 	}
-
-	public void setAnio(String anio) {
-		this.anio = anio;
+	public void setTiempo_carrera(String tiempo_carrera) {
+		Tiempo_carrera = tiempo_carrera;
 	}
-	
 	
 	}

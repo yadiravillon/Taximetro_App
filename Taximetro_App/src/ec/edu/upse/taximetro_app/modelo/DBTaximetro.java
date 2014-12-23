@@ -17,6 +17,7 @@ public class DBTaximetro {
 	private static final String TABLA_NAME2 = "carrera";
 	private static final String TABLA_NAME3 = "tarifa";
 	
+	
 	private static final String DB_NAME = "DBTaximetro";
 	
 	public void nuevoUsuario(Context contexto, String nombres, String apellidos,

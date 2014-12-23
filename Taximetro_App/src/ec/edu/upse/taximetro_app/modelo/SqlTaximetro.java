@@ -118,6 +118,28 @@ public class SqlTaximetro extends SQLiteOpenHelper {
 		sqldb.execSQL("INSERT INTO ttarifa VALUES(NULL, 'Terminal Terrestre', 'Santa Elena Zona Periferica', 1.50)");
 		sqldb.execSQL("INSERT INTO ttarifa VALUES(NULL, 'Terminal Terrestre', 'Ballenita', 1.00)");
 		sqldb.execSQL("INSERT INTO ttarifa VALUES(NULL, 'Terminal Terrestre', 'Muey Centri', 3.00)");
+		sqldb.execSQL("INSERT INTO ttarifa VALUES(NULL, 'Terminal Terrestre', 'Muey Zona Periferica', 3.50)");
+		sqldb.execSQL("INSERT INTO ttarifa VALUES(NULL, 'Terminal Terrestre', 'Santa Rosa - San Lorenzo', 4.00)");
+		sqldb.execSQL("INSERT INTO ttarifa VALUES(NULL, 'Terminal Terrestre', 'Salinas - Base', 5.00)");
+		sqldb.execSQL("INSERT INTO ttarifa VALUES(NULL, 'Terminal Terrestre', 'Ancon', 5.00)");
+		sqldb.execSQL("INSERT INTO ttarifa VALUES(NULL, 'Terminal Terrestre', 'Anconcito', 6.00)");
+		sqldb.execSQL("INSERT INTO ttarifa VALUES(NULL, 'Terminal Terrestre', 'Atahualpa', 8.00)");
+		sqldb.execSQL("INSERT INTO ttarifa VALUES(NULL, 'Terminal Terrestre', 'Tambo', 7.00)");
+		sqldb.execSQL("INSERT INTO ttarifa VALUES(NULL, 'Terminal Terrestre', 'Chanduy', 7.00)");
+		sqldb.execSQL("INSERT INTO ttarifa VALUES(NULL, 'Terminal Terrestre', 'Baños de San Vicente', 7.00)");
+		sqldb.execSQL("INSERT INTO ttarifa VALUES(NULL, 'Terminal Terrestre', 'Colonche', 9.00)");
+		sqldb.execSQL("INSERT INTO ttarifa VALUES(NULL, 'Terminal Terrestre', 'San Pablo', 5.00)");
+		sqldb.execSQL("INSERT INTO ttarifa VALUES(NULL, 'Terminal Terrestre', 'Monteverde', 8.00)");
+		sqldb.execSQL("INSERT INTO ttarifa VALUES(NULL, 'Terminal Terrestre', 'Ayangue', 15.00)");
+		sqldb.execSQL("INSERT INTO ttarifa VALUES(NULL, 'Terminal Terrestre', 'Olon', 25.00)");
+		sqldb.execSQL("INSERT INTO ttarifa VALUES(NULL, 'Terminal Terrestre', 'Montañita', 25.00)");
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		

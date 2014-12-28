@@ -87,29 +87,35 @@ public class DBTaximetro {
 	}
 	
 	
-public ArrayList<ItemDeUsuario> Listalogin(Context contexto, String usuario, String clave){
+public Usuario Listalogin(Context contexto, String usuario, String clave){
 		
-		ArrayList<ItemDeUsuario> listaUsuario=null;
+		Usuario listaUsuario=null;
 		// COnexion a la BD
 		SqlTaximetro tarjetaDB =new SqlTaximetro(contexto,DB_NAME,null,1);
 		// Referencia a la BD
 		SQLiteDatabase  db = tarjetaDB.getReadableDatabase();
-		listaUsuario = new ArrayList<ItemDeUsuario>();
-		
 		// Consulta sobre la bd
-		//Cursor cursor = db.query(TABLA_NAME, new String[]{"tar_titular","tar_nombre","tar_numero"}, 
-		//null,null,null,null,"tar_nombre");
 		// si es que existe al menos un resultado
 		String[] parametrosDeBusqueda = new String[]{usuario,clave};
-		String sql = "SELECT * FROM "+TABLA_NAME1+ " WHERE usuario = ? and clave = ?";
-		Cursor cursor = db.rawQuery(sql, parametrosDeBusqueda);
-			
-						if(cursor.moveToFirst()){
+		String sql = "SELECT user.id_u, user.usuario, person.id_p, person.nombres , person.apellidos, person.email " +
+				"FROM "+TABLA_NAME1+" as user,"+TABLA_NAME+" as person " +
+				"WHERE user.usuario = ? and user.clave = ? and user.estado='A' and person.id_p = user.id_persona";
+		Cursor cursor = db.rawQuery(sql, parametrosDeBusqueda);	
+		if(cursor.moveToFirst()){
 			// Recorrer los resultados
 			do{
-				ItemDeUsuario item=new ItemDeUsuario(R.drawable.ic_consulta,cursor.getString(1),
-						cursor.getString(2));
-				listaUsuario.add(item);
+				listaUsuario = new Usuario();
+				listaUsuario.setId_u(cursor.getInt(0));
+				listaUsuario.setUsuario(cursor.getString(1));
+				
+				Persona per = new Persona();
+				per.setId_p(cursor.getInt(2));
+				per.setNombres(cursor.getString(3));
+				per.setApellidos(cursor.getString(4));
+				per.setEmail(cursor.getString(5));
+				
+				listaUsuario.setPersona(per);
+				
 			}while(cursor.moveToNext());
 		}
 		

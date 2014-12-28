@@ -1,7 +1,9 @@
 package ec.edu.upse.taximetro_app;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -65,10 +67,23 @@ public class TaxiActivity extends Activity implements LocationListener{
 		String TipoTarifa;	
 		Integer total_segundos_i;
 		
-	 @Override
+		//variables para para guardar la carrera
+		Integer id_usuario;
+		String nombre_usuario;
+	 
+		@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_taxi);
+		
+		Intent intentActual = this.getIntent();
+		try {
+				id_usuario = Integer.parseInt(intentActual.getStringExtra("id_usuario"));
+				nombre_usuario = intentActual.getStringExtra("usuario");
+				Toast.makeText(this, "usuario: "+nombre_usuario+" id: "+id_usuario, Toast.LENGTH_LONG).show();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		Inicializar();
 			DBTaximetro db = new DBTaximetro();
 			Date hora =new Date();
@@ -158,14 +173,13 @@ public class TaxiActivity extends Activity implements LocationListener{
 			}
 			
 			if(locationI !=null){
-				
+				CronometroTiempo.start();
 				latitud_inicio = locationI.getLatitude();
 				longitud_inicio = locationI.getLongitude();
 				latlng = new LatLng(latitud_inicio, longitud_inicio);
 				agregarMarca(latitud_inicio, longitud_inicio, "PUNTO DE PARTIDA", "Ubicación Inicio");	
 				polilinea_options = new PolylineOptions().add(latlng).color(Color.RED);
 				polilinea = mapa.addPolyline(polilinea_options);
-				et_Partida.setText("LAT "+latitud_inicio+ " LONG "+longitud_inicio);
 				//ACTUALIZACIÓN DE LA LOCALIZACIÓN...PROVEEDOR, MILISEGUNDOS, METROS, ACTIVIDAD
 				locationManager.requestLocationUpdates(proveedor, 250, 0, this);
 			}else{
@@ -180,7 +194,6 @@ public class TaxiActivity extends Activity implements LocationListener{
 			longitud_final = locationF.getLongitude();
 			agregarMarca(latitud_final, longitud_final, "PUNTO DE LLEGADA", "Ubicación Final");
 			//et_tiempo.setText(total_segundos/3600 + "h");
-			et_Llegada.setText("LAT "+latitud_final+ " LONG "+longitud_final);
 			et_Km.setText(distancia_total/1000+" Km");
 			
 			locationI = null;
@@ -211,17 +224,34 @@ public class TaxiActivity extends Activity implements LocationListener{
 		}
 	}
 	
-
+	public String getFechaActual(){
+		Calendar c1;
+		 	c1 = Calendar.getInstance();	
+	        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+	        return sdf.format(c1.getTime());
+	}
+	
+	/*
+	 (Context contexto,Integer id_usuario, Integer id_tarifa,
+	  			Double km, Double valor,
+				String origen, Double latitud_origen,Double longitud_origen,
+				String destino, Double latitud_destino,Double longitud_destino,
+				String fecha, String duracion_carrera ) 
+	 */
+	
  public void onGuardar(View boton){
 		Inicializar();
-		
-		
 		DBTaximetro dbTaxi = new DBTaximetro();
-    	if (isEmpty()){
+    	if (locationI!=null && isEmpty()){
     		Toast.makeText(this,"Algun(os) Campo(s) stán vacios!!", Toast.LENGTH_LONG).show();
     	}else{
-	    		//Carrera cr=new Carrera(0,et_Km.toString(), et_$.getText().toString(), et_Partida.getText().toString(), et_Llegada.getText().toString());
-	    		//dbTaxi.nuevaCarrera(this, cr.getIdCarrera(), cr.getIdPersonas(), cr.getIdTarifa(), cr.getKm(),cr.getValor(),cr.getOrigen(),cr.getCordenada_origen(),cr.getDestino(), cr.getCordenada_destino(),cr.getDia(),cr.getMes(),cr.getAnio());
+    			Double kilometrosRecorridos = Double.parseDouble(""+et_Km.getText());
+    			Double costoCarrera = Double.parseDouble(""+et_$.getText());
+	    		dbTaxi.nuevaCarrera(this, id_usuario , tarifa.getId(),
+	    				kilometrosRecorridos,costoCarrera,
+	    				""+et_Partida.getText(),latitud_inicio,longitud_inicio,
+	    				""+et_Llegada.getText(),latitud_final,longitud_final,
+	    				getFechaActual(),""+CronometroTiempo.getText());
 	    		//Toast.makeText(this,"Carrera Registrada exitosamente", Toast.LENGTH_SHORT).show();
 	    		//Limpiar();		
     	}	

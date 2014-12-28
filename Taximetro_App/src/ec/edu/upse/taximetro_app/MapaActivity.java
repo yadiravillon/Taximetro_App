@@ -21,6 +21,9 @@ import android.widget.ToggleButton;
 
 public class MapaActivity extends Activity implements LocationListener{
 	
+	Integer id;
+	String nombre_usuario;
+	
 	//declarar variable que represente al mapa
 		
 		GoogleMap mapa;
@@ -73,7 +76,6 @@ public class MapaActivity extends Activity implements LocationListener{
 				agregarMarca(lat, longi, "ubica", "Ubicacion actual");
 				Toast.makeText(this,"lat:" +lat+ " " + "long: " +longi,Toast.LENGTH_LONG).show();
 				
-				
 			}else{
 				Toast.makeText(this,"location es null",Toast.LENGTH_LONG).show();
 				
@@ -85,6 +87,14 @@ public class MapaActivity extends Activity implements LocationListener{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_mapa);
+		Intent intentActual = this.getIntent();
+		try {
+				id = Integer.parseInt(intentActual.getStringExtra("id_usuario"));
+				nombre_usuario = intentActual.getStringExtra("usuario");
+				Toast.makeText(this, "usuario: "+nombre_usuario+" id: "+id, Toast.LENGTH_LONG).show();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		mapa = ((MapFragment)getFragmentManager().findFragmentById(R.id.fragmentMapas)).getMap();
 		//comprobacion
@@ -117,6 +127,8 @@ public class MapaActivity extends Activity implements LocationListener{
 
 public void irTaximetro(View boton){
 	Intent intent =new Intent(this,TaxiActivity.class);
+	intent.putExtra("id_usuario", ""+id);
+	intent.putExtra("usuario", nombre_usuario);
 	startActivity(intent);
 }
 

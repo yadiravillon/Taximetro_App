@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 
 import ec.edu.upse.taximetro_app.modelo.DBTaximetro;
+import ec.edu.upse.taximetro_app.modelo.Usuario;
 import ec.edu.upse.taximetro_app.utiles.ItemDeUsuario;
 import android.os.Bundle;
 import android.app.Activity;
@@ -32,32 +33,37 @@ public class MainActivity extends Activity {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
+    
     public void Registrarse_Evento(View boton){
 		Intent intent = new Intent(this,RegistroActivity.class);
 		startActivity(intent);
-	} 
+	}
+    
     public void Inicializar(){
     	editTextUsuario = (EditText) findViewById(R.id.editTextUsuario);
     	editTextPassword = (EditText) findViewById(R.id.editTextPassword);
 		
 	}
+    
     public void Acceder_Evento(View boton)
     {
     	Inicializar();
     	String Nombre = editTextUsuario.getText().toString();
     	String Clave = editTextPassword.getText().toString();
     	DBTaximetro dbTaxi = new DBTaximetro();
-    	ArrayList<ItemDeUsuario> listarTarjeta = dbTaxi.Listalogin(this, Nombre, Clave);
-    	if (listarTarjeta.size() == 0)
+    	Usuario user = dbTaxi.Listalogin(this, Nombre, Clave);
+    	if (user == null)
     	{
-    		Toast.makeText(this, "Usuario o Clave incorrecta", Toast.LENGTH_LONG).show();
+    		Toast.makeText(this, "El Usuario/Clave es incorrecta o el usuario no está registrado", Toast.LENGTH_LONG).show();
     	}
     	else
     	{
     		Intent intent =new Intent(this,FuncionesActivity.class);
+    		intent.putExtra("id_usuario", ""+user.getId_u());
+    		intent.putExtra("usuario", user.getUsuario());
+    		Toast.makeText(this, "usuario: "+user.getId_u(), Toast.LENGTH_LONG).show();
     		startActivity(intent);
     		Limpiar();
-    		
     	}	
     }
     

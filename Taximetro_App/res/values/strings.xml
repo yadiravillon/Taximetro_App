@@ -25,5 +25,10 @@
     <string name="Normal">Normal</string>
     <string name="title_activity_mapas">MapasActivity</string>
     <string name="Tipo_tarifa">Tipo de Tarifa</string>
+    <string name="title_activity_menu__consultas">Menu_ConsultasActivity</string>
+    <string name="title_activity_tabla_ant">TablaANTActivity</string>
+    <string name="title_activity_item_tabla">Item_tablaActivity</string>
+    <string name="title_activity_item_tablas">ItemTablasActivity</string>
+    <string name="title_activity_item_tablita">ItemTablitaActivity</string>
 
 </resources>

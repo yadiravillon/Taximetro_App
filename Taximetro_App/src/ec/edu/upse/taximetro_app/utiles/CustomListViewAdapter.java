@@ -11,43 +11,43 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import ec.edu.upse.taximetro_app.R;
 
-public class CustomListViewAdapter extends ArrayAdapter<ItemConsulta> {
+public class CustomListViewAdapter extends ArrayAdapter<ItemTablita> {
 	Context context;
 	 
-    public CustomListViewAdapter(Context context, int resourceId, List<ItemConsulta> items) {
+    public CustomListViewAdapter(Context context, int resourceId, List<ItemTablita> items) {
         super(context, resourceId, items);
         this.context = context;
     }
     
     private class ViewHolder {
         
-        TextView txtRuta;
-        TextView txtValor;
-        TextView txtDistancia;      
+        TextView txtOrigen;
+        TextView txtDestino;
+        TextView txtCosto;      
     }
     
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder = null;
-        ItemConsulta item = getItem(position);
+        ItemTablita item = getItem(position);
  // aqui inflamos el layout normal de un adapter es decir lo estmaos personalizando
         LayoutInflater mInflater = (LayoutInflater) context
                 .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         if (convertView == null) {
         	// indicar con que layout vamos a inflar el listview
-            convertView = mInflater.inflate(R.layout.activity_item__result, null);
+            convertView = mInflater.inflate(R.layout.activity_item_tabla, null);
             
             holder = new ViewHolder();
-            holder.txtRuta = (TextView) convertView.findViewById(R.id.textView1Ruta);
-          //  holder.txtValor = (TextView) convertView.findViewById(R.id.textViewValor);
-            holder.txtDistancia = (TextView) convertView.findViewById(R.id.textViewDistancia);
+            holder.txtOrigen = (TextView) convertView.findViewById(R.id.textViewOrig);
+            holder.txtDestino = (TextView) convertView.findViewById(R.id.textViewDest);
+            holder.txtCosto = (TextView) convertView.findViewById(R.id.textViewCost);
             
             convertView.setTag(holder);
         } else
             holder = (ViewHolder) convertView.getTag();
  
-        holder.txtRuta.setText(item.getRuta());
-        holder.txtValor.setText(Double.toString( item.getValor()));
-        holder.txtDistancia.setText(Double.toString(item.getDistancia()));
+        holder.txtOrigen.setText(item.getOrigen());
+        holder.txtDestino.setText(item.getDestino());
+        holder.txtCosto.setText(Double.toString(item.getCosto()));
         
  
         return convertView;

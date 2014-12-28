@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import ec.edu.upse.taximetro_app.R;
 import ec.edu.upse.taximetro_app.utiles.ItemConsulta;
 import ec.edu.upse.taximetro_app.utiles.ItemDeUsuario;
-
+import ec.edu.upse.taximetro_app.utiles.ItemTablita;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -16,6 +16,7 @@ public class DBTaximetro {
 	private static final String TABLA_NAME1 = "usuarios";
 	private static final String TABLA_NAME2 = "carrera";
 	private static final String TABLA_NAME3 = "tarifa";
+	private static final String TABLA_NAME4 = "ttarifa";
 	
 	
 	private static final String DB_NAME = "DBTaximetro";
@@ -147,6 +148,63 @@ public Tarifa selectAllTarifa(Context contexto,Integer hora){
 }
 
 
+public ArrayList<ItemTablita> BuscarTabla(Context contexto){
+	
+	ArrayList<ItemTablita> listaTabla=null;
+	
+	SqlTaximetro tarjetaDB =new SqlTaximetro(contexto,DB_NAME,null,1);
+	SQLiteDatabase  db = tarjetaDB.getReadableDatabase();
+	
+	listaTabla = new ArrayList<ItemTablita>();
+	
+	String[] parametrosDeBusqueda=null;
+	String sql="SELECT id_tt, p_partida, p_final, precio FROM ttarifa";
+	Cursor cursor=db.rawQuery(sql, parametrosDeBusqueda);
+
+	if(cursor.moveToFirst()){
+		
+		// Recorrer los resultados
+		do{
+			ItemTablita item= new ItemTablita(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getDouble(3));
+			listaTabla.add(item);
+		}while(cursor.moveToNext());
+	}
+	
+	return listaTabla;
+}
+
+
+public ArrayList<ItemTablita> BuscarPorDestino(Context contexto,String Parametro){
+	
+	ArrayList<ItemTablita> listaTarjetas=null;
+	
+	// COnexion a la BD
+	SqlTaximetro tarjetaDB =new SqlTaximetro(contexto,DB_NAME,null,1);
+	SQLiteDatabase  db = tarjetaDB.getReadableDatabase();
+	listaTarjetas = new ArrayList<ItemTablita>();
+	
+	// Consulta sobre la bd
+	//Cursor cursor = db.query(TABLA_NAME, new String[]{"tar_titular","tar_nombre","tar_numero"}, 
+		//	null,null,null,null,"tar_nombre");
+	
+	String[] parametrosDeBusqueda=new String[]{"%"+Parametro+"%","%"+Parametro+"%"};
+	String sql="SELECT id_tt, p_partida, p_final, precio FROM ttarifa  WHERE p_partida like ? or p_final like ?";
+	Cursor cursor=db.rawQuery(sql, parametrosDeBusqueda);
+
+	if(cursor.moveToFirst()){
+		
+		// Recorrer los resultados
+		do{
+			ItemTablita item= new ItemTablita(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getDouble(3));
+			listaTarjetas.add(item);
+		}while(cursor.moveToNext());
+	}
+	
+	return listaTarjetas;
+}
+
+
+
 
 public ArrayList<ItemConsulta> listarConsulta(Context contexto){
 	
@@ -173,6 +231,8 @@ public ArrayList<ItemConsulta> listarConsulta(Context contexto){
 	
 	return listaConsultas;
 }
+
+
 
 
 }

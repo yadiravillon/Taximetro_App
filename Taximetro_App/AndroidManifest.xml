@@ -68,6 +68,26 @@
             android:name="ec.edu.upse.taximetro_app.ConsultasActivity"
             android:label="@string/title_activity_consultas" >
         </activity>
+        <activity
+            android:name="ec.edu.upse.taximetro_app.Menu_ConsultasActivity"
+            android:label="@string/title_activity_menu__consultas" >
+        </activity>
+        <activity
+            android:name="ec.edu.upse.taximetro_app.TablaANTActivity"
+            android:label="@string/title_activity_tabla_ant" >
+        </activity>
+        <activity
+            android:name="ec.edu.upse.taximetro_app.Item_tablaActivity"
+            android:label="@string/title_activity_item_tabla" >
+        </activity>
+        <activity
+            android:name="ec.edu.upse.taximetro_app.ItemTablasActivity"
+            android:label="@string/title_activity_item_tablas" >
+        </activity>
+        <activity
+            android:name="ec.edu.upse.taximetro_app.ItemTablitaActivity"
+            android:label="@string/title_activity_item_tablita" >
+        </activity>
     </application>
 
 </manifest>

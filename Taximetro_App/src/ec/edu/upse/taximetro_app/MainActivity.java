@@ -2,6 +2,13 @@ package ec.edu.upse.taximetro_app;
 
 import java.util.ArrayList;
 
+import org.ksoap2.SoapEnvelope;
+import org.ksoap2.serialization.PropertyInfo;
+import org.ksoap2.serialization.SoapObject;
+import org.ksoap2.serialization.SoapPrimitive;
+import org.ksoap2.serialization.SoapSerializationEnvelope;
+import org.ksoap2.transport.HttpTransportSE;
+
 
 import ec.edu.upse.taximetro_app.modelo.DBTaximetro;
 import ec.edu.upse.taximetro_app.modelo.Usuario;
@@ -19,6 +26,11 @@ public class MainActivity extends Activity {
 
     private EditText editTextUsuario, editTextPassword;
     private Button btn_Acceder;
+    //datos proporcionados por el web service
+    private final String NAMESPACE ="";//
+    private final String URL="";//POST
+    private final String SOAPACTION="";//SOAPAction
+    private final String METHOD="";//aqui va el nombre de uno de los metodos a usar 
     
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,5 +83,37 @@ public class MainActivity extends Activity {
 		editTextUsuario.setText("");
 		editTextPassword.setText("");
 	} 
-    
+    public void metodo_validar_usuario(View v)
+    {
+    	Inicializar();
+    	String Nombre = editTextUsuario.getText().toString();
+    	String Clave = editTextPassword.getText().toString();
+    	if (Nombre == null || Nombre.length()==0 || Clave==null || Clave.length()==0)
+    	{
+    		Toast.makeText(this, "Campos vacios", Toast.LENGTH_LONG).show();
+    	}
+    	SoapObject request = new SoapObject(NAMESPACE, METHOD);
+    	PropertyInfo validar_usuario = new PropertyInfo();
+    	validar_usuario.setName("");//nombre del parametro
+    	validar_usuario.setValue(Nombre);
+    	validar_usuario.setType(String.class);
+    	validar_usuario.setName("");//nombre del parametro
+    	validar_usuario.setValue(Clave);
+    	validar_usuario.setType(String.class);
+    	request.addProperty(validar_usuario);
+    	SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        envelope.dotNet = true;
+        envelope.setOutputSoapObject(request);
+        HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
+        try
+        {
+            androidHttpTransport.call(SOAPACTION, envelope);
+            SoapPrimitive response = (SoapPrimitive)envelope.getResponse();
+            
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
 }

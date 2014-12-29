@@ -33,7 +33,7 @@ public class ConsultasActivity extends Activity {
 		ArrayList<ItemConsulta> listarCarrera = dbTaximetro.listarConsulta(this);
 		//TRABAJAR CON LA INTERFAZ
 		//SE CREA UN CustomListViewAdapter PARA DIBUJAR CADA ELEMENTO DEL listview
-	//	CustomListViewAdapter customAdapter = new CustomListViewAdapter(this, R.layout.activity_item__result, listarCarrera);
+		//CustomListViewAdapter customAdapter = new CustomListViewAdapter(this, R.layout.activity_item__result, listarCarrera);
 		//ESTABLECER ADAPTADOR A listview
 		//lista.setAdapter(customAdapter);
 		//CONTROLAR EL EVENTO DE CLICK SOBRE CADA ITEM DE LA LISTA
